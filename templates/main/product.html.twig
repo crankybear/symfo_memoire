@@ -1,0 +1,7 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <h1>{{ product.name| capitalize }}  {{ product.price }} €</h1>
+    <img src="{{ product.image }}"/>
+    <h2>{{ product.description }}</h2>
+    <a class="btn btn-primary" href="{{ path('cart_add', {'id':product.id}) }}"><i class="fa fa-shopping-cart mr-1"></i> Ajouter au panier</a>
+{% endblock %}

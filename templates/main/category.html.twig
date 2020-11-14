@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+<h1>Catégorie {{ category.title }}</h1>
+    <h2>Liste des produits</h2>
+    <ul>
+    {% for product in category.product %}
+        <h3>{{ product.name| capitalize }}  {{ product.price }} €</h3>
+        <img src="{{ product.image }}" width="350" height="150"/>
+        <h3>{{ product.description }}</h3>
+        <a class="btn btn-primary" href="{{ path('show_product', {'id': product.id}) }}">Voir plus</a>
+    {% endfor %}
+    </ul>
+{% endblock %}

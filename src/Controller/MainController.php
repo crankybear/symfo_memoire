@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Entity\Category;
+use App\Form\ProductType;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -55,6 +57,27 @@ class MainController extends AbstractController
     public function productDetail($id, ProductRepository $productRepository){
         $product = $productRepository->find($id);
         return $this->render('main/product.html.twig', [
+            'product' => $product
+        ]);
+    }
+
+
+    /**
+     * @Route("/search", name="recherche")
+     * @param Request $request
+     * @param ProductRepository $repository
+     * @return Response
+     */
+    public function searchProduct(Request $request, ProductRepository $repository) {
+        $searchForm = $this->createForm(ProductType::class);
+        $searchForm->handleRequest($request);
+        $product = [];
+        if($searchForm->isSubmitted() && $searchForm->isValid()) {
+            $criteria = $searchForm->getData();
+            $product = $repository->search($criteria);
+        }
+        return $this->render('search/search.html.twig', [
+            'searchForm' => $searchForm->createView(),
             'product' => $product
         ]);
     }

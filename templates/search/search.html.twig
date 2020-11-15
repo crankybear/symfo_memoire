@@ -1,0 +1,17 @@
+{%  extends 'base.html.twig' %}
+{% block body %}
+
+{{ form_start(searchForm) }}
+    {{ form_row(searchForm.name) }}
+{{ form_end(searchForm) }}
+
+{% if app.request.method == 'POST' %}
+    {% if product | length > 0 %}
+        {% for item in product %}
+<h2><a href="{{ path('show_product', {'id':item.id}) }}"> {{ item.name }}</h2>
+        {% endfor %}
+    {% else %}
+        <h2>aucun résultat pour votre recherche</h2>
+    {% endif %}
+{% endif %}
+{%  endblock %}

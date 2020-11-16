@@ -63,7 +63,7 @@ class MainController extends AbstractController
 
 
     /**
-     * @Route("/search", name="recherche")
+     * @Route("/search", name="search")
      * @param Request $request
      * @param ProductRepository $repository
      * @return Response
